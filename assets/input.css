@@ -5,9 +5,3 @@
   --font-sans: "Alegreya", system-ui, sans-serif;
   --font-heading: "Alegreya", Georgia, serif;
 }
-
-@layer base {
-  body {
-    @apply font-sans;
-  }
-}
