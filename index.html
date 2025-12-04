@@ -10,8 +10,42 @@
     </style>
   </head>
   <body class="font-sans bg-[#DAC396] min-h-screen flex flex-col">
-    <header class="flex justify-evenly bg-[#915018] py-8">
-      <div></div>
+    <header
+      class="flex justify-between bg-[#915018] px-8 py-8 shadow-md relative"
+    >
+      <div class="max-w-7xl px-4 py-4 flex justify-between items-center">
+        <button
+          id="menu-toggle"
+          class="focus:outline-none"
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+        >
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Menu is hidden by default -->
+      <nav
+        id="mobile-menu"
+        class="hidden absolute left-6 top-full bg-white rounded-md shadow-md p-4 z-50 flex flex-col"
+      >
+        <a href="#" class="block py-2 border-b">Home</a>
+        <a href="#" class="block py-2 border-b">About</a>
+        <a href="#" class="block py-2 border-b">Contact</a>
+      </nav>
+
       <div class="flex flex-row gap-2.5">
         <img src="./assets/IMG/Ellipse 2.svg" />
         <p class="font-sans flex justify-evenly text-4xl text-[#DAC396]">
@@ -19,7 +53,11 @@
           House
         </p>
       </div>
-      <div></div>
+      <div>
+        <h2 class="font-sans flex justify-evenly text-4xl text-[#DAC396]">
+          profile
+        </h2>
+      </div>
     </header>
 
     <main class="grow"></main>
@@ -29,5 +67,6 @@
         Auction House
       </p>
     </footer>
+    <script type="module" src="./JS/pages/index.js"></script>
   </body>
 </html>
