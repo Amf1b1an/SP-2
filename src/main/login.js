@@ -32,7 +32,7 @@ form.addEventListener("submit", async (e) => {
       if (apiKey) store.setApiKey(apiKey);
     }
 
-    window.location.href = "./feed.html";
+    window.location.href = "../index.html";
   } catch (err) {
     console.error("Login failed:", err);
 
