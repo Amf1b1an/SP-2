@@ -1,4 +1,4 @@
-import { setupHamburgerMenu } from "../components/header.js";
+import { setupHamburgerMenu } from "../../JS/components/header.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   setupHamburgerMenu();

@@ -16,21 +16,23 @@
       <div class="max-w-7xl px-4 py-4 flex justify-between items-center">
         <button
           id="menu-toggle"
-          class="focus:outline-none"
+          class="focus:outline-none bg-[#dac396] rounded-2xl h-12 w-12 border-3 border-solid border-[#6c3F18] flex items-center justify-center"
           aria-controls="mobile-menu"
           aria-expanded="false"
         >
           <svg
-            class="w-6 h-6"
+            xmlns="https://www.w3.org/2000/svg"
+            width="32"
+            height="24"
             fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
+            viewBox="0 0 36 24"
           >
             <path
               stroke-linecap="round"
               stroke-linejoin="round"
               stroke-width="2"
-              d="M4 6h16M4 12h16M4 18h16"
+              d="M0 24V20H36V24H0ZM0 14V10H36V14H0ZM0 4V0H36V4H0Z"
+              fill="#915018"
             />
           </svg>
         </button>
@@ -39,11 +41,28 @@
       <!-- Menu is hidden by default -->
       <nav
         id="mobile-menu"
-        class="hidden absolute left-6 top-full bg-white rounded-md shadow-md p-4 z-50 flex flex-col"
+        class="hidden absolute left-6 top-full rounded-md shadow-md p-4 z-50 flex flex-col gap-2.5 bg-[#DAC396] border-3 border-solid border-[#6c3F18] pl-2 w-60"
       >
-        <a href="#" class="block py-2 border-b">Home</a>
-        <a href="#" class="block py-2 border-b">About</a>
-        <a href="#" class="block py-2 border-b">Contact</a>
+        <a
+          href="#"
+          class="block p-2 border-2 border-solid bg-[#6c3F18] text-[#DAC396] hover:bg-[#DAC396] hover:text-[#6C3F18] rounded-2xl"
+          >Profile</a
+        >
+        <a
+          href="#"
+          class="block p-2 border-2 border-solid bg-[#6c3F18] text-[#DAC396] hover:bg-[#DAC396] hover:text-[#6C3F18] rounded-2xl"
+          >Catalogue</a
+        >
+        <a
+          href="#"
+          class="block p-2 border-2 border-solid bg-[#6c3F18] text-[#DAC396] hover:bg-[#DAC396] hover:text-[#6C3F18] rounded-2xl"
+          >Sell</a
+        >
+        <a
+          href="#"
+          class="block p-2 border-2 border-solid bg-[#6c3F18] text-[#DAC396] hover:bg-[#DAC396] hover:text-[#6C3F18] rounded-2xl"
+          >Log out</a
+        >
       </nav>
 
       <div class="flex flex-row gap-2.5">
@@ -67,6 +86,6 @@
         Auction House
       </p>
     </footer>
-    <script type="module" src="./JS/pages/index.js"></script>
+    <script type="module" src="./src/main/index.js"></script>
   </body>
 </html>
