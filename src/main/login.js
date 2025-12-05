@@ -34,8 +34,13 @@ form.addEventListener("submit", async (e) => {
 
     window.location.href = "./feed.html";
   } catch (err) {
-    console.error(err);
-    errorEl.textContent = err.message || "Login Failed";
+    console.error("Login failed:", err);
+
+    const msg = /401|unauthorized|invalid/i.test(err.message)
+      ? "Invalid email or password. Please try again."
+      : err.message || "Login failed.";
+
+    errorEl.textContent = msg;
     errorEl.classList.remove("hidden");
   }
 });
