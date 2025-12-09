@@ -4,30 +4,75 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Auction House</title>
-    <link rel="stylesheet" href="./assets/style.css" />
+    <link rel="stylesheet" href="../assets/style.css" />
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&display=swap");
     </style>
   </head>
   <body class="font-sans bg-[#DAC396] min-h-screen flex flex-col">
-    <header class="flex justify-evenly bg-[#915018] py-8">
-      <div></div>
+    <header class="flex justify-between bg-[#915018] px-8 py-8 relative mb-12">
+      <div class="max-w-7xl flex justify-between items-center">
+        <button
+          id="menu-toggle"
+          class="focus:outline-none bg-[#dac396] rounded-2xl h-12 w-12 border-3 border-solid border-[#6c3F18] flex items-center justify-center"
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+        >
+          <svg
+            xmlns="https://www.w3.org/2000/svg"
+            width="32"
+            height="24"
+            fill="none"
+            viewBox="0 0 36 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M0 24V20H36V24H0ZM0 14V10H36V14H0ZM0 4V0H36V4H0Z"
+              fill="#915018"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Menu -->
+      <nav
+        id="mobile-menu"
+        class="hidden absolute left-6 top-full rounded-md shadow-md p-4 z-50 flex flex-col gap-2.5 bg-[#DAC396] border-3 border-solid border-[#6c3F18] pl-2 w-60"
+      ></nav>
+
       <div class="flex flex-row gap-2.5">
-        <img src="./assets/IMG/Ellipse 2.svg" />
-        <p class="font-sans flex justify-evenly text-4xl text-[#DAC396]">
+        <a href="../index.html">
+          <img src="../assets/IMG/Ellipse 2.svg" class="" />
+        </a>
+        <a
+          class="font-sans flex justify-evenly text-4xl text-[#DAC396]"
+          href="../index.html"
+        >
           Auction <br />
           House
-        </p>
+        </a>
       </div>
-      <div></div>
+      <div class="flex justify-center items-center">
+        <a id="profile-link" class="mr-4 cursor-pointer">
+          <img src="../assets/IMG/profile-icon.svg" alt="Profile" class="" />
+        </a>
+        <p id="header-credits" class="text-sm text-[#DAC396] hidden"></p>
+      </div>
     </header>
 
-    <main class="grow"></main>
+    <main
+      class="grow bg-[#915018] mb-12 px-5 sm:px-20 md:px-32 lg:px-62"
+    ></main>
 
-    <footer class="flex justify-evenly bg-[#915018]">
-      <p class="font-sans flex justify-evenly text-4xl text-[#DAC396]">
+    <footer class="w-full flex justify-center bg-[#915018] py-1.5">
+      <p
+        class="font-sans flex justify-evenly sm:text-3xl md:text-4xl text-[#DAC396] m-0"
+      >
         Auction House
       </p>
     </footer>
+    <script type="module" src="../src/main/item.js"></script>
   </body>
 </html>

@@ -38,32 +38,11 @@
         </button>
       </div>
 
-      <!-- Menu is hidden by default -->
+      <!-- Menu -->
       <nav
         id="mobile-menu"
         class="hidden absolute left-6 top-full rounded-md shadow-md p-4 z-50 flex flex-col gap-2.5 bg-[#DAC396] border-3 border-solid border-[#6c3F18] pl-2 w-60"
-      >
-        <a
-          href="#"
-          class="block p-2 border-2 border-solid bg-[#6c3F18] text-[#DAC396] hover:bg-[#DAC396] hover:text-[#6C3F18] rounded-2xl"
-          >Profile</a
-        >
-        <a
-          href="#"
-          class="block p-2 border-2 border-solid bg-[#6c3F18] text-[#DAC396] hover:bg-[#DAC396] hover:text-[#6C3F18] rounded-2xl"
-          >Catalogue</a
-        >
-        <a
-          href="#"
-          class="block p-2 border-2 border-solid bg-[#6c3F18] text-[#DAC396] hover:bg-[#DAC396] hover:text-[#6C3F18] rounded-2xl"
-          >Sell</a
-        >
-        <a
-          href="#"
-          class="block p-2 border-2 border-solid bg-[#6c3F18] text-[#DAC396] hover:bg-[#DAC396] hover:text-[#6C3F18] rounded-2xl"
-          >Log out</a
-        >
-      </nav>
+      ></nav>
 
       <div class="flex flex-row gap-2.5">
         <img src="./assets/IMG/Ellipse 2.svg" />
@@ -73,15 +52,32 @@
         </p>
       </div>
       <div class="flex justify-center items-center">
-        <a id="profile-link" class="mr-4 cursor-pointer">
+        <a
+          id="profile-link"
+          class="mr-4 cursor-pointer"
+          href="pages/profile.html"
+        >
           <img src="./assets/IMG/profile-icon.svg" alt="Profile" class="" />
         </a>
+        <p id="header-credits" class="text-sm text-[#DAC396] hidden"></p>
       </div>
     </header>
 
-    <main class="grow"></main>
+    <main
+      class="w-full flex flex-col items-center px-4 sm:px-8 md:px-12 lg:px-16"
+    >
+      <h1 class="bg-[#983422] w-full text-center">Newest items</h1>
+      <div
+        id="carousel"
+        class="w-full max-w-4xl relative overflow-hidden mb-12"
+      >
+        <div id="carousel-core" class="relative w-full h-64 sm:h-96"></div>
+      </div>
+      <h2>Most Popular Item</h2>
+      <section id="hottest" class="w-full max-w-4xl"></section>
+    </main>
 
-    <footer class="flex justify-evenly bg-[#915018]">
+    <footer class="flex justify-evenly bg-[#915018] py-1.5">
       <p class="font-sans flex justify-evenly text-4xl text-[#DAC396]">
         Auction House
       </p>

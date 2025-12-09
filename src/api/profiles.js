@@ -51,16 +51,16 @@ export async function toggleFollow(name, action = "follow") {
  * @param {{ name: string, avatar?: string, banner?: string }} payload
  * @returns {Promise<any>}
  */
-export async function updateProfileMedia({ name, avatar, banner }) {
-  const body = {};
-  if (avatar) body.avatar = avatar;
-  if (banner) body.banner = banner;
-  const res = await apiFetch(
-    `/social/profiles/${encodeURIComponent(name)}/media`,
-    {
-      method: "PUT",
-      body: JSON.stringify(body),
-    }
-  );
-  return res?.data;
+export async function updateProfileMedia({ avatar, banner, bio, name }) {
+  if (!name) throw new Error("Missing profile name");
+
+  const payload = {};
+  if (avatar) payload.avatar = avatar;
+  if (banner) payload.banner = banner;
+  if (bio) payload.bio = bio;
+
+  return apiFetch(`/social/profiles/${name}`, {
+    method: "PUT",
+    body: JSON.stringify(payload),
+  });
 }
