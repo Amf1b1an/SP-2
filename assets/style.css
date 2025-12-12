@@ -288,9 +288,6 @@
   .hidden {
     display: none;
   }
-  .table {
-    display: table;
-  }
   .h-12 {
     height: calc(var(--spacing) * 12);
   }
@@ -336,23 +333,14 @@
   .max-w-7xl {
     max-width: var(--container-7xl);
   }
-  .flex-grow {
-    flex-grow: 1;
-  }
   .grow {
     flex-grow: 1;
-  }
-  .border-collapse {
-    border-collapse: collapse;
   }
   .transform {
     transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
   }
   .cursor-pointer {
     cursor: pointer;
-  }
-  .resize {
-    resize: both;
   }
   .flex-col {
     flex-direction: column;
@@ -456,9 +444,6 @@
   .border-white {
     border-color: var(--color-white);
   }
-  .bg-\[\#6c3F18\] {
-    background-color: #6c3F18;
-  }
   .bg-\[\#915018\] {
     background-color: #915018;
   }
@@ -470,9 +455,6 @@
   }
   .bg-\[\#dac396\] {
     background-color: #dac396;
-  }
-  .bg-black {
-    background-color: var(--color-black);
   }
   .bg-black\/30 {
     background-color: color-mix(in srgb, #000 30%, transparent);
@@ -536,9 +518,6 @@
   }
   .py-2 {
     padding-block: calc(var(--spacing) * 2);
-  }
-  .py-4 {
-    padding-block: calc(var(--spacing) * 4);
   }
   .py-8 {
     padding-block: calc(var(--spacing) * 8);
@@ -638,9 +617,6 @@
   .italic {
     font-style: italic;
   }
-  .underline {
-    text-decoration-line: underline;
-  }
   .opacity-0 {
     opacity: 0%;
   }
@@ -654,10 +630,6 @@
   .shadow-md {
     --tw-shadow: 0 4px 6px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 2px 4px -2px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
-  }
-  .outline {
-    outline-style: var(--tw-outline-style);
-    outline-width: 1px;
   }
   .transition-opacity {
     transition-property: opacity;
@@ -691,24 +663,10 @@
       }
     }
   }
-  .hover\:bg-\[\#DAC396\] {
-    &:hover {
-      @media (hover: hover) {
-        background-color: #DAC396;
-      }
-    }
-  }
   .hover\:bg-\[\#b74d30\] {
     &:hover {
       @media (hover: hover) {
         background-color: #b74d30;
-      }
-    }
-  }
-  .hover\:text-\[\#6C3F18\] {
-    &:hover {
-      @media (hover: hover) {
-        color: #6C3F18;
       }
     }
   }
@@ -874,11 +832,6 @@
   inherits: false;
   initial-value: 0 0 #0000;
 }
-@property --tw-outline-style {
-  syntax: "*";
-  inherits: false;
-  initial-value: solid;
-}
 @property --tw-duration {
   syntax: "*";
   inherits: false;
@@ -908,7 +861,6 @@
       --tw-ring-offset-width: 0px;
       --tw-ring-offset-color: #fff;
       --tw-ring-offset-shadow: 0 0 #0000;
-      --tw-outline-style: solid;
       --tw-duration: initial;
     }
   }
