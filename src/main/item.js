@@ -1,11 +1,11 @@
-import { setupHeader } from "../utils/header.js";
-import { setupHamburgerMenu } from "../utils/header.js";
-import { apiFetch } from "../api/http.js";
+import { setupHeader, setupHamburgerMenu } from "../utils/header.js";
+import { getItem, placeBid } from "../api/items.js";
 import { store } from "../state/store.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
   setupHeader();
   setupHamburgerMenu();
+  await loadItemPage();
 });
 
 const params = new URLSearchParams(location.search);
@@ -16,11 +16,9 @@ if (!id) {
   container.textContent = "Invalid item ID.";
 }
 
-main();
-
-async function main() {
+async function loadItemPage() {
   try {
-    const data = await apiFetch(`/auction/listings/${id}?_bids=true`);
+    const data = await getItem(id);
 
     const {
       title,
@@ -35,36 +33,40 @@ async function main() {
     } = data;
 
     const latestBid = bids.length ? Math.max(...bids.map((b) => b.amount)) : 0;
-
     const endsIn = formatTimeUntil(endsAt);
 
     container.innerHTML = `
       <!-- IMAGE + ENDS AT + BIDS -->
-      <div class="relative w-full h-64 bg-cover bg-center rounded-xl" style="background-image: url('${media?.[0]?.url || media?.[0] || ""}')">
-        <div class="absolute top-2 left-2 bg-white text-black px-3 py-1 rounded-md shadow text-sm font-bold">
-          Ends in: ${endsIn}
-        </div>
-        <div class="absolute top-2 right-2 bg-white text-black px-3 py-1 rounded-md shadow text-sm font-semibold">
-          Bids: ${bids.length}
+      <div class="flex flex-row w-fit justify-center gap-7">
+        
+        
+        <img src="${media?.[0]?.url || ""}" alt="Item image" class="w-full max-w-[200px] sm:max-w-[300px] h-auto object-contain rounded shadow" />
+        <div class="flex flex-col justify-evenly">
+          <div class=" top-2 left-2 bg-[#983422] text-white px-3 py-1 shadow text-sm font-bold">
+            Ends in: ${endsIn}
+          </div>
+          <div class=" top-2 right-2 bg-[#983422] text-white px-3 py-1 shadow text-sm font-semibold">
+            Bids: ${bids.length}
+          </div>
         </div>
       </div>
 
       <!-- TITLE + CREATOR -->
-      <div>
-        <h1 class="text-3xl font-bold text-[#915018] mb-1">${title}</h1>
-        <p class="text-gray-700 text-md">Listed by: <span class="font-semibold">${seller?.name}</span></p>
+      <div class="w-full text-center bg-[#983422] p-5" >
+        <h1 class="text-3xl font-bold  max-w-full text-white mb-1">${title}</h1>
+        <p class="text-[#DAC396] text-md">Listed by: <span class="font-semibold">${seller?.name}</span></p>
       </div>
 
       <!-- DESCRIPTION + TAGS -->
-      <div>
-        <p class="text-gray-800 mt-2">${description || "No description provided."}</p>
-        <div class="mt-2 flex flex-wrap gap-2">
-          ${tags.map((tag) => `<span class="bg-[#983422] text-white px-2 py-1 text-sm rounded">${tag}</span>`).join("")}
+      <div class="w-full text-center bg-[#983422] p-5">
+        <p class="text-white  mt-2">${description || "No description provided."}</p>
+        <div class="mt-2 flex flex-wrap gap-2 justify-center p-2">
+          ${tags.map((tag) => `<span class="bg-[#DAC396] text-[#983422] px-2 py-1 text-sm rounded">#${tag}</span>`).join("")}
         </div>
       </div>
 
       <!-- CURRENT BID -->
-      <div class="mt-4 text-lg font-semibold">
+      <div class="mt-4 text-lg font-semibold text-white w-full text-center bg-[#983422] p-5">
         Current highest bid: <span class="text-green-700">${latestBid} credits</span>
       </div>
 
@@ -72,6 +74,7 @@ async function main() {
       <form id="bidForm" class="mt-4 flex gap-2 items-center">
         <input type="number" min="1" name="amount" required placeholder="Enter bid" class="border p-2 rounded-md w-32" />
         <button type="submit" class="bg-[#915018] text-white px-4 py-2 rounded-md hover:bg-[#6c3F18]">Place Bid</button>
+        <span id="bidError" class="text-red-600 text-sm hidden ml-2"></span>
       </form>
 
       <!-- LAST UPDATED -->
@@ -80,34 +83,35 @@ async function main() {
       </div>
     `;
 
-    // Add bid form logic
-    const bidForm = document.getElementById("bidForm");
-    const bidError = document.getElementById("bidError");
-
-    if (new Date(endsAt) < new Date()) {
-      bidForm.innerHTML = `<p class="text-red-600">This auction has ended.</p>`;
-    } else {
-      bidForm.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const amount = parseFloat(e.target.amount.value);
-        bidError.classList.add("hidden");
-
-        try {
-          await apiFetch(`/auction/listings/${id}/bids`, {
-            method: "POST",
-            body: JSON.stringify({ amount }),
-          });
-          alert("Bid placed!");
-          location.reload();
-        } catch (err) {
-          bidError.textContent = err.message || "Failed to place bid.";
-          bidError.classList.remove("hidden");
-        }
-      });
-    }
+    setupBidForm(endsAt);
   } catch (err) {
     container.textContent = `Error loading item: ${err.message}`;
   }
+}
+
+function setupBidForm(endsAt) {
+  const bidForm = document.getElementById("bidForm");
+  const bidError = document.getElementById("bidError");
+
+  if (new Date(endsAt) < new Date()) {
+    bidForm.innerHTML = `<p class="text-red-600">This auction has ended.</p>`;
+    return;
+  }
+
+  bidForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const amount = parseFloat(e.target.amount.value);
+    bidError.classList.add("hidden");
+
+    try {
+      await placeBid(id, amount);
+      alert("Bid placed successfully!");
+      location.reload();
+    } catch (err) {
+      bidError.textContent = err.message || "Failed to place bid.";
+      bidError.classList.remove("hidden");
+    }
+  });
 }
 
 function formatTimeUntil(dateStr) {
