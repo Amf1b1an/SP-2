@@ -37,7 +37,7 @@ async function loadItemPage() {
 
     container.innerHTML = `
       <!-- IMAGE + ENDS AT + BIDS -->
-      <div class="flex flex-row w-fit justify-center gap-7">
+      <div class="flex flex-row w-fit justify-center gap-5 p-4">
         
         
         <img src="${media?.[0]?.url || ""}" alt="Item image" class="w-full max-w-[200px] sm:max-w-[300px] h-auto object-contain rounded shadow" />
@@ -52,8 +52,8 @@ async function loadItemPage() {
       </div>
 
       <!-- TITLE + CREATOR -->
-      <div class="w-full text-center bg-[#983422] p-5" >
-        <h1 class="text-3xl font-bold  max-w-full text-white mb-1">${title}</h1>
+      <div class="w-full text-center bg-[#983422] p-5 " >
+        <h1 class="text-2xl sm:text-3xl font-bold  max-w-full text-white mb-1">${title}</h1>
         <p class="text-[#DAC396] text-md">Listed by: <span class="font-semibold">${seller?.name}</span></p>
       </div>
 
