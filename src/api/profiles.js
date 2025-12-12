@@ -10,7 +10,7 @@ import { apiFetch } from "../api/http.js";
 export async function getProfile(name, include = true) {
   const flags = include ? "?_followers=true&_following=true&_posts=true" : "";
   const res = await apiFetch(
-    `/social/profiles/${encodeURIComponent(name)}${flags}`
+    `/auction/profiles/${encodeURIComponent(name)}${flags}`
   );
   return res?.data;
 }
@@ -25,7 +25,7 @@ export async function getProfilePosts(name, opts = {}) {
   const { page = 1, limit = 20 } = opts;
   const usp = new URLSearchParams({ page: String(page), limit: String(limit) });
   const res = await apiFetch(
-    `/social/profiles/${encodeURIComponent(name)}/posts?${usp.toString()}`
+    `/auction/profiles/${encodeURIComponent(name)}/listings?${usp.toString()}`
   );
   return res?.data ?? [];
 }
@@ -38,7 +38,7 @@ export async function getProfilePosts(name, opts = {}) {
  */
 export async function toggleFollow(name, action = "follow") {
   const res = await apiFetch(
-    `/social/profiles/${encodeURIComponent(name)}/${action}`,
+    `/auction/profiles/${encodeURIComponent(name)}/${action}`,
     {
       method: "PUT",
     }
@@ -59,7 +59,7 @@ export async function updateProfileMedia({ avatar, banner, bio, name }) {
   if (banner) payload.banner = banner;
   if (bio) payload.bio = bio;
 
-  return apiFetch(`/social/profiles/${name}`, {
+  return apiFetch(`/auction/profiles/${name}`, {
     method: "PUT",
     body: JSON.stringify(payload),
   });
