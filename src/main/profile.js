@@ -8,6 +8,7 @@ import {
   updateProfileMedia,
 } from "../api/profiles.js";
 import { toUrl } from "../utils/media.js";
+import { deleteItem } from "../api/items.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   setupHeader();
@@ -256,6 +257,7 @@ function renderProfile(p) {
 
 function renderPosts(items) {
   postsEl.innerHTML = "";
+
   if (!items.length) {
     const p = document.createElement("p");
     p.textContent = "No posts yet.";
@@ -265,13 +267,12 @@ function renderPosts(items) {
 
   for (const post of items) {
     const card = document.createElement("div");
-    card.className = "post";
+    card.className = "bg-white rounded shadow p-4 mb-4";
 
     const a = document.createElement("a");
-    a.href = `./post.html?id=${encodeURIComponent(post.id)}`;
-    const h3 = document.createElement("h3");
-    h3.textContent = post.title;
-    a.appendChild(h3);
+    a.href = `./item.html?id=${encodeURIComponent(post.id)}`;
+    a.className = "text-xl font-bold text-[#983422] hover:underline";
+    a.textContent = post.title;
     card.appendChild(a);
 
     let mediaUrl = "";
@@ -285,14 +286,52 @@ function renderPosts(items) {
       const img = document.createElement("img");
       img.src = mediaUrl;
       img.alt = "";
-      img.style = "max-width:100%;border-radius:12px;margin:6px 0";
+      img.className = "w-full mt-2 rounded";
       card.appendChild(img);
     }
 
-    if (post.body) {
-      const body = document.createElement("p");
-      body.textContent = post.body;
-      card.appendChild(body);
+    if (post.description) {
+      const desc = document.createElement("p");
+      desc.className = "mt-2 text-gray-700";
+      desc.textContent = post.description;
+      card.appendChild(desc);
+    }
+
+    const meta = document.createElement("p");
+    meta.className = "text-sm text-gray-500 mt-1";
+    meta.textContent = `Bids: ${post.bids?.length || 0} | Ends: ${new Date(post.endsAt).toLocaleString()}`;
+    card.appendChild(meta);
+
+    // 🔒 Only show Edit/Delete if this is the user's own profile
+    if (viewing === meName) {
+      const btnRow = document.createElement("div");
+      btnRow.className = "mt-3 flex gap-2";
+
+      const editBtn = document.createElement("a");
+      editBtn.href = `./edit.html?id=${post.id}`;
+      editBtn.textContent = "Edit";
+      editBtn.className =
+        "px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600";
+
+      const delBtn = document.createElement("button");
+      delBtn.textContent = "Delete";
+      delBtn.className =
+        "px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700";
+
+      delBtn.addEventListener("click", async () => {
+        if (confirm("Are you sure you want to delete this listing?")) {
+          try {
+            await deleteItem(post.id);
+            await load(); // Re-fetch profile data
+          } catch (err) {
+            showErr(err.message || "Failed to delete listing");
+          }
+        }
+      });
+
+      btnRow.appendChild(editBtn);
+      btnRow.appendChild(delBtn);
+      card.appendChild(btnRow);
     }
 
     postsEl.appendChild(card);

@@ -43,7 +43,7 @@ form.addEventListener("submit", async (e) => {
     store.setApiKey(keyRes.data.key);
 
     // 4. Set initial credits
-    await apiFetch(`/social/profiles/${username}`, {
+    await apiFetch(`/auction/profiles/${username}`, {
       method: "PUT",
       body: JSON.stringify({ credits: 1000 }),
     });

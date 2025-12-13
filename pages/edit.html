@@ -64,31 +64,58 @@
     </header>
 
     <main class="grow bg-[#915018] mb-28 px-5 sm:px-20 md:px-32 lg:px-62">
-      <h1
-        class="text-3xl font-bold my-4 bg-[#915018] text-[#dac396] text-center"
-      >
-        Catalogue
-      </h1>
-      <form id="searchForm" class="mb-4 flex gap-2">
+      <h1 class="text-3xl font-bold mb-4 text-center">Edit Listing</h1>
+
+      <form id="editForm" class="space-y-4">
         <input
           type="text"
-          id="searchInput"
-          placeholder="Search title or #tag"
-          class="p-2 border rounded w-full"
+          name="title"
+          id="title"
+          placeholder="Title"
+          required
+          class="w-full p-2 border rounded"
         />
 
-        <button type="submit" class="bg-[#915018] text-white px-4 rounded">
-          Search
+        <textarea
+          name="description"
+          id="description"
+          placeholder="Description"
+          class="w-full p-2 border rounded"
+        ></textarea>
+
+        <input
+          type="url"
+          name="media"
+          id="media"
+          placeholder="Image URL"
+          required
+          class="w-full p-2 border rounded"
+        />
+
+        <input
+          type="text"
+          name="tags"
+          id="tags"
+          placeholder="Tags (comma-separated)"
+          class="w-full p-2 border rounded"
+        />
+
+        <input
+          type="datetime-local"
+          name="endsAt"
+          id="endsAt"
+          required
+          class="w-full p-2 border rounded"
+        />
+
+        <button
+          type="submit"
+          class="bg-[#915018] text-white px-4 py-2 rounded hover:bg-[#6c3f18] w-full"
+        >
+          Save Changes
         </button>
+        <p id="formError" class="text-red-600 mt-2 hidden"></p>
       </form>
-      <div
-        id="feedContainer"
-        class="grid grid-cols-1 md:grid-cols-2 gap-10 bg-[#dac396] p-10 mb-10"
-      ></div>
-      <div
-        id="paginationControls"
-        class="flex justify-center items-center mt-6 gap-2"
-      ></div>
     </main>
 
     <footer class="w-full flex justify-center bg-[#915018] py-1.5">
@@ -98,6 +125,6 @@
         Auction House
       </p>
     </footer>
-    <script type="module" src="../src/main/feed.js"></script>
+    <script type="module" src="../src/main/edit.js"></script>
   </body>
 </html>

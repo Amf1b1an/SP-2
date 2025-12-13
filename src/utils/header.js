@@ -16,15 +16,15 @@ export async function setupHeader() {
   // Build menu links
   navEl.innerHTML = isLoggedIn
     ? `
-      <a href="../index.html">Home</a>
-      <a href="pages/profile.html">My Profile</a>
-      <a href="pages/feed.html">Catalogue</a>
-      <a href="pages/create.html">New Auction</a>
+      <a href="/index.html">Home</a>
+      <a href="/pages/profile.html">My Profile</a>
+      <a href="/pages/feed.html">Catalogue</a>
+      <a href="/pages/create.html">New Auction</a>
       <a href="#" id="logout">Log Out</a>
     `
     : `
-      <a href="../pages/login.html">Login</a>
-      <a href="../pages/register.html">Register</a>
+      <a href="/pages/login.html">Login</a>
+      <a href="/pages/register.html">Register</a>
     `;
 
   // LOGOUT BUTTON

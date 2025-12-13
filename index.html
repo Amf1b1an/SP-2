@@ -64,16 +64,24 @@
     </header>
 
     <main
-      class="w-full flex flex-col items-center px-4 sm:px-8 md:px-12 lg:px-16"
+      class="w-full flex flex-col gap-2 items-center p-4 sm:px-8 md:px-12 lg:px-16"
     >
-      <h1 class="bg-[#983422] w-full text-center">Newest items</h1>
+      <h1
+        class="bg-[#983422] max-w-4xl rounded-md text-2xl sm:text-3xl py-2 w-full text-center"
+      >
+        Newest items
+      </h1>
       <div
         id="carousel"
-        class="w-full max-w-4xl relative overflow-hidden mb-12"
+        class="w-full max-w-4xl relative overflow-hidden mb-12 rounded-md"
       >
         <div id="carousel-core" class="relative w-full h-64 sm:h-96"></div>
       </div>
-      <h2>Most Popular Item</h2>
+      <h2
+        class="bg-[#983422] max-w-4xl rounded-md text-2xl sm:text-3xl py-2 w-full text-center"
+      >
+        Most Popular Item
+      </h2>
       <section id="hottest" class="w-full max-w-4xl"></section>
     </main>
 
