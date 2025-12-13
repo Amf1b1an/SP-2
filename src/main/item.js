@@ -19,7 +19,6 @@ if (!id) {
 async function loadItemPage() {
   try {
     const data = await getItem(id);
-    console.log("✅ Loaded item from API:", data);
 
     const {
       title,
