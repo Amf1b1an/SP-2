@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Auction House</title>
+    <meta name="description" content="Edit one of your listings" />
     <link rel="stylesheet" href="../assets/style.css" />
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&display=swap");
@@ -11,7 +12,7 @@
   </head>
 
   <body class="font-sans bg-[#DAC396] min-h-screen flex flex-col">
-    <header class="flex justify-between bg-[#915018] px-8 py-8 relative mb-28">
+    <header class="flex justify-between bg-[#915018] px-8 py-8 relative mb-12">
       <div class="max-w-7xl flex justify-between items-center">
         <button
           id="menu-toggle"
@@ -63,24 +64,28 @@
       </div>
     </header>
 
-    <main class="grow bg-[#915018] mb-28 px-5 sm:px-20 md:px-32 lg:px-62">
-      <h1 class="text-3xl font-bold mb-4 text-center">Edit Listing</h1>
+    <main class="grow bg-[#915018] mb-12 p-5 sm:px-20 md:px-32 lg:px-62">
+      <h1
+        class="text-2xl sm:text-3xl font-bold mb-4 text-center py-2 text-[#DAC396] bg-[#983422] rounded-xl"
+      >
+        Edit Listing
+      </h1>
 
-      <form id="editForm" class="space-y-4">
+      <form id="editForm" class="space-y-4 bg-[#983422] p-5 rounded-xl">
         <input
           type="text"
           name="title"
           id="title"
           placeholder="Title"
           required
-          class="w-full p-2 border rounded"
+          class="w-full p-2 border rounded bg-[#DAC396]"
         />
 
         <textarea
           name="description"
           id="description"
           placeholder="Description"
-          class="w-full p-2 border rounded"
+          class="w-full p-2 border rounded bg-[#DAC396]"
         ></textarea>
 
         <input
@@ -89,7 +94,7 @@
           id="media"
           placeholder="Image URL"
           required
-          class="w-full p-2 border rounded"
+          class="w-full p-2 border rounded bg-[#DAC396]"
         />
 
         <input
@@ -97,7 +102,7 @@
           name="tags"
           id="tags"
           placeholder="Tags (comma-separated)"
-          class="w-full p-2 border rounded"
+          class="w-full p-2 border rounded bg-[#DAC396]"
         />
 
         <input
@@ -105,12 +110,12 @@
           name="endsAt"
           id="endsAt"
           required
-          class="w-full p-2 border rounded"
+          class="w-full p-2 border rounded bg-[#DAC396]"
         />
 
         <button
           type="submit"
-          class="bg-[#915018] text-white px-4 py-2 rounded hover:bg-[#6c3f18] w-full"
+          class="bg-[#DAC396] text-black hover:text-white px-4 py-2 rounded hover:bg-[#915018] w-full border"
         >
           Save Changes
         </button>

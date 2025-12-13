@@ -4,7 +4,6 @@ import { store } from "../state/store.js";
 import {
   getProfile,
   getProfilePosts,
-  toggleFollow,
   updateProfileMedia,
 } from "../api/profiles.js";
 import { toUrl } from "../utils/media.js";
@@ -49,16 +48,6 @@ function showErr(msg) {
 function hideErr() {
   if (errEl) errEl.classList.add("hidden");
 }
-function fmt(n) {
-  return typeof n === "number" ? n : 0;
-}
-function fmtDate(iso) {
-  try {
-    return new Date(iso).toLocaleString();
-  } catch {
-    return iso || "";
-  }
-}
 
 if (!viewing) {
   box.innerHTML = "";
@@ -96,11 +85,7 @@ async function load() {
  * the structure of the profile view
  *  - banner image
  *  - profile picture and name
- *  - three counters for followers following, and post counts
  *  - (OWN PROFILE) update profile form
- *  - (OTHER PROFILES) Follow and unfollow buttons
- *
- *
  *
  *
  * @param {profile} p - profile data
@@ -140,15 +125,6 @@ function renderProfile(p) {
   h2.textContent = p.name;
   info.appendChild(h2);
 
-  const counts = document.createElement("p");
-  counts.className = "text-sm text-gray-200";
-  const fwers = p._count?.followers ?? p.followers?.length ?? 0;
-  const fwing = p._count?.following ?? p.following?.length ?? 0;
-  const postCount =
-    p._count?.posts ?? (Array.isArray(p.posts) ? p.posts.length : 0);
-  counts.textContent = `${fmt(fwers)} followers • ${fmt(fwing)} following • ${fmt(postCount)} posts`;
-  info.appendChild(counts);
-
   const credits = document.createElement("p");
   credits.className = "text-sm text-gray-100";
   credits.textContent = `Credits: ${p.credits || 0}`;
@@ -164,27 +140,6 @@ function renderProfile(p) {
   profileRow.appendChild(info);
   bannerWrapper.appendChild(profileRow);
   box.appendChild(bannerWrapper);
-
-  //follow/Unfollow button
-  if (viewing && meName && viewing !== meName) {
-    const youFollow = !!(p.followers || []).find((f) => f.name === meName);
-    const btn = document.createElement("button");
-    btn.className =
-      "mt-2 ml-4 px-4 py-2 rounded-md bg-[#983422] text-white hover:bg-[#b74d30]";
-    btn.textContent = youFollow ? "Unfollow" : "Follow";
-    btn.addEventListener("click", async () => {
-      btn.disabled = true;
-      try {
-        await toggleFollow(p.name, youFollow ? "unfollow" : "follow");
-        await load();
-      } catch (e) {
-        console.error(e);
-        showErr(e.message || "Failed to update follow");
-        btn.disabled = false;
-      }
-    });
-    box.appendChild(btn);
-  }
 
   //update form
   if (viewing === meName) {
@@ -267,11 +222,12 @@ function renderPosts(items) {
 
   for (const post of items) {
     const card = document.createElement("div");
-    card.className = "bg-white rounded shadow p-4 mb-4";
+    card.className =
+      "bg-[#983422] rounded shadow p-4 mb-4 max-w-36 sm:max-w-48 md:max-w-64 w-full max-h-full";
 
     const a = document.createElement("a");
     a.href = `./item.html?id=${encodeURIComponent(post.id)}`;
-    a.className = "text-xl font-bold text-[#983422] hover:underline";
+    a.className = "text-xl font-bold text-white  hover:underline";
     a.textContent = post.title;
     card.appendChild(a);
 
@@ -286,23 +242,24 @@ function renderPosts(items) {
       const img = document.createElement("img");
       img.src = mediaUrl;
       img.alt = "";
-      img.className = "w-full mt-2 rounded";
+      img.className = "max-w-full max-h-58 mt-2 rounded";
       card.appendChild(img);
     }
 
     if (post.description) {
       const desc = document.createElement("p");
-      desc.className = "mt-2 text-gray-700";
+      desc.className =
+        "mt-2 w-full text-white border border-[#983422] shadow rounded";
       desc.textContent = post.description;
       card.appendChild(desc);
     }
 
     const meta = document.createElement("p");
-    meta.className = "text-sm text-gray-500 mt-1";
+    meta.className = "text-sm text-white mt-1 ";
     meta.textContent = `Bids: ${post.bids?.length || 0} | Ends: ${new Date(post.endsAt).toLocaleString()}`;
     card.appendChild(meta);
 
-    // 🔒 Only show Edit/Delete if this is the user's own profile
+    // Only show Edit/Delete if this is the user's own profile
     if (viewing === meName) {
       const btnRow = document.createElement("div");
       btnRow.className = "mt-3 flex gap-2";
@@ -322,7 +279,7 @@ function renderPosts(items) {
         if (confirm("Are you sure you want to delete this listing?")) {
           try {
             await deleteItem(post.id);
-            await load(); // Re-fetch profile data
+            await load();
           } catch (err) {
             showErr(err.message || "Failed to delete listing");
           }

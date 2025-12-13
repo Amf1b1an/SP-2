@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Auction House</title>
+    <meta name="description" content="Your profile on Auction House!" />
     <link rel="stylesheet" href="../assets/style.css" />
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&display=swap");
@@ -62,14 +63,28 @@
       </div>
     </header>
 
-    <main class="grow bg-[#915018] mb-12 px-5 sm:px-20 md:px-32 lg:px-62">
+    <main class="grow bg-[#915018] mb-12 p-5 sm:px-20 md:px-32 lg:px-62">
       <div class="flex flex-col">
-        <h1 class="text-4xl flex justify-center text-[white]">Profile</h1>
+        <h1
+          class="text-2xl sm:text-3xl font-bold mb-4 text-center py-2 text-[#DAC396] bg-[#983422] rounded-xl"
+        >
+          Profile
+        </h1>
 
-        <div id="profileBox" class="bg-[#DAC396] p-5 shadow-md"></div>
+        <div
+          id="profileBox"
+          class="bg-[#DAC396] p-5 shadow-md rounded-xl mb-4"
+        ></div>
 
-        <h2 style="margin-top: 16px">Posts</h2>
-        <div id="userPosts" class="card"></div>
+        <h2
+          class="text-2xl sm:text-3xl font-bold mb-4 text-center py-2 text-[#DAC396] bg-[#983422] rounded-xl"
+        >
+          Posts
+        </h2>
+        <div
+          id="userPosts"
+          class="card flex justify-evenly gap-2 flex-wrap max-w-full"
+        ></div>
 
         <p id="profileError" class="badge hidden"></p>
       </div>
