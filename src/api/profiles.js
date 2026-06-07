@@ -10,7 +10,7 @@ import { apiFetch } from "../api/http.js";
 export async function getProfile(name, include = true) {
   const flags = include ? "?_followers=true&_following=true&_posts=true" : "";
   const res = await apiFetch(
-    `/auction/profiles/${encodeURIComponent(name)}${flags}`
+    `/auction/profiles/${encodeURIComponent(name)}${flags}`,
   );
   return res?.data;
 }
@@ -25,25 +25,9 @@ export async function getProfilePosts(name, opts = {}) {
   const { page = 1, limit = 20 } = opts;
   const usp = new URLSearchParams({ page: String(page), limit: String(limit) });
   const res = await apiFetch(
-    `/auction/profiles/${encodeURIComponent(name)}/listings?${usp.toString()}`
+    `/auction/profiles/${encodeURIComponent(name)}/listings?${usp.toString()}`,
   );
   return res?.data ?? [];
-}
-
-/**
- * Follow or unfollow a profile.
- * @param {string} name
- * @param {"follow"|"unfollow"} action
- * @returns {Promise<any>}
- */
-export async function toggleFollow(name, action = "follow") {
-  const res = await apiFetch(
-    `/auction/profiles/${encodeURIComponent(name)}/${action}`,
-    {
-      method: "PUT",
-    }
-  );
-  return res?.data;
 }
 
 /**
